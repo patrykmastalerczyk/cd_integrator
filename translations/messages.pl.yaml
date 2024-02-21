@@ -1,0 +1,152 @@
+app:
+  title: 'Integrator'
+  sidebar:
+    main: 'Menu zarządzania'
+    import: 'Import produktów'
+    product: 'Produkty'
+    category: 'Kategorie'
+    offer: 'Oferty'
+    admin: 'Konta administratorskie'
+    actionlog: 'Logi akcji'
+  actionlog:
+    label: 'Logi akcji'
+    help: 'W tym miejscu znajduje się spis wszystkich wykonanych akcji cyklicznych.'
+    list:
+      fields:
+        id: 'ID'
+        datetime: 'Czas'
+        content: 'Wpis'
+  admin:
+    label: 'Konta administratorskie'
+    help: 'Panel zarządzania kontami administracyjnymi. Aby utworzyć nowe konto naciśnij niebieski przycisk <b>Stwórz</b> po prawej stronie i uzupełnij formularz.'
+    list:
+      fields:
+        id: 'ID'
+        username: 'Nazwa użytkownika'
+        password: 'Hasło'
+    form:
+      fields:
+        id: 'ID'
+        username: 'Nazwa użytkownika'
+        password: 'Hasło'
+  import:
+    label: 'Import produktów'
+    help: 'W tej sekcji znajdziesz narzędzia do importu produktów. Aby zaimportować nowy produkt z hurtowni wciśnij przycisk po prawej stronie i uzupełnij jego identyfikator.'
+    list:
+      filters:
+        status: 'Status'
+      fields:
+        id: 'ID'
+        originalId: 'ID CoffeeDesk'
+        status: 'Status'
+    form:
+      fields:
+        originalId:
+          label: 'ID CoffeeDesk'
+          help: 'W tym miejscu wprowadź identyfikator z CoffeeDesk i zatwierdź formularz przyciskiem poniżej'
+    status:
+      new: 'Nowy'
+      processing: 'Przetwarzanie'
+      completed: 'Powodzenie'
+      rejected: 'Niepowodzenie'
+  category:
+    label: 'Kategorie'
+    help: 'W tej sekcji możesz zarządzać automatyzacją przypisywania poszczególnych kategorii do produktów'
+    list:
+      fields:
+        id: 'ID'
+        key: 'Klucz'
+        value: 'Wartość'
+    form:
+      fields:
+        key:
+          label: 'Klucz'
+          help: 'W tym miejscu podaj ID kategorii z CoffeeDesk w formie tekstowej, np. <b>ekspresy</b> lub <b>akcesoria</b>'
+        value:
+          label: 'Wartość'
+          help: 'W tym miejscu podaj identyfikator kategorii ze sklepu w formie numerycznej, np. <b>31</b>'
+  product:
+    label: 'Zarządzanie produktami'
+    help: 'Witaj w sekcji zarządzania produktami. Znajdziesz tutaj wszystkie informacje o dostępnych w systemie produktach. Aby dodać nowy przejdź do sekcji <b>Import produktów</b>.'
+    list:
+      actions:
+        generateOffer: 'Formularz oferty'
+        createOffers: 'Stwórz oferty'
+        disableSync: 'Przełącz synchronizację'
+      filters:
+        priceRegularGross: 'Cena regularna'
+        priceIndividualGross: 'Cena indywidualna'
+        pricePromotionalGross: 'Cena promocyjna'
+        syncDisabled: 'Wyłączona synchronizacja'
+      fields:
+        id: 'ID'
+        coffeeDeskId: 'ID CD'
+        priceRegularGross: 'Cena (R)'
+        priceIndividualGross: 'Cena (I)'
+        pricePromotionalGross: 'Cena (P)'
+        priceDiff: 'Zysk (R-I)'
+        stock: 'Stan'
+        brand: 'Marka'
+        name: 'Nazwa'
+        lastRefresh: 'Data odświeżenia'
+        syncDisabled: 'Sync off'
+    form:
+      fields:
+        id:
+          label: 'ID'
+        coffeeDeskId:
+          label: 'ID CoffeeDesk'
+        name:
+          label: 'Nazwa'
+        description:
+          label: 'Opis'
+        categories:
+          label: 'Kategorie'
+          help: 'W tym miejscu wpisz numery kategorii do których ma być przyporządkowana oferta.'
+        stock:
+          label: 'Na stanie'
+        priceRegularGross:
+          label: 'Cena regularna'
+          help: 'Nie możesz edytować tej wartości, ponieważ jest ona aktualizowana dynamicznie przy każdym pobraniu produktu. Edycja odbywa się przy wystawianiu oferty sprzedaży.'
+        priceIndividualGross:
+          label: 'Cena indywidualna'
+          help: 'Nie możesz edytować tej wartości, ponieważ jest ona aktualizowana dynamicznie przy każdym pobraniu produktu. Edycja odbywa się przy wystawianiu oferty sprzedaży.'
+        pricePromotionalGross:
+          label: 'Cena promocyjna'
+          help: 'Nie możesz edytować tej wartości, ponieważ jest ona aktualizowana dynamicznie przy każdym pobraniu produktu. Edycja odbywa się przy wystawianiu oferty sprzedaży.'
+        images:
+          label: 'Zdjęcia produktu'
+        buffer:
+          label: 'Bufor bezpieczeństwa'
+          help: 'W tym miejscu możesz podać wartość np. <b>-2</b>, <b>2</b> - będzie to wartość, która zostanie dodana do stanu magazynowego produktu przy każdej aktualizacji (domyślnie 0)'
+        syncDisabled:
+          label: 'Wyłączenie synchronizacji z CoffeeDesk'
+          help: 'Aby wyłączyć cykliczne pobieranie danych dla tego produktu zaznacz checkbox po lewej stronie. Oznacza to, że produkt nie będzie aktualizowany.'
+  offer:
+    label: 'Oferty'
+    help: 'W tej sekcji odnajdziesz wszystko związane z zarządzaniem produktami bezpośrednio w WooCommerce. Aby stworzyć nowy produkt wciśnij przycisk <b>Stwórz nowy</b> po prawej stronie.'
+    list:
+      fields:
+        id: 'ID'
+        name: 'Nazwa'
+    form:
+      fields:
+        id:
+          label: 'ID'
+        name:
+          label: 'Nazwa'
+        products:
+          label: 'Produkty'
+          help: 'Możesz dodać wiele produktów jeśli chcesz by produkt był złożony - oznacza to jeden produkt w WooCommerce podpięty pod wiele indeksów z CoffeeDesk.'
+        relatedOffers:
+          label: 'Powiązane produkty (grupowe)'
+          help: 'To pole jest nieobowiązkowe. Wypełnij je, jeśli chcesz, aby produkt był <b>grupowy</b>.'
+        promotionalPrice:
+          label: 'Cena promocyjna'
+          help: 'To pole może pozostać puste. Uzupełnij je tylko wtedy, jeśli chcesz zastosować promocję.'
+        price:
+          label: 'Cena'
+        description:
+          label: 'Główny opis'
+        shortDescription:
+          label: 'Krótki opis'

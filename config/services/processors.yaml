@@ -1,0 +1,59 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Application\Envelope\Handler\ProductImportHandler: ~
+  App\Application\Envelope\Handler\ProductRefreshHandler: ~
+  App\Application\Envelope\Handler\OfferRefreshHandler: ~
+  App\Application\Envelope\Handler\BuildOfferHandler: ~
+  App\Application\Envelope\Handler\CreateOfferHandler: ~
+  App\Application\Envelope\Handler\RemoveOfferHandler: ~
+
+  app.processor.product_import:
+    class: App\Queue\Processor\ProductImportProcessor
+    arguments:
+      - '@monolog.logger'
+      - '@App\Application\Envelope\Handler\ProductImportHandler'
+    tags:
+      - { name: enqueue.transport.processor }
+
+  app.processor.product_refresh:
+    class: App\Queue\Processor\ProductRefreshProcessor
+    arguments:
+      - '@monolog.logger'
+      - '@App\Application\Envelope\Handler\ProductRefreshHandler'
+    tags:
+      - { name: enqueue.transport.processor }
+
+  app.processor.build_offer:
+    class: App\Queue\Processor\BuildOfferProcessor
+    arguments:
+      - '@monolog.logger'
+      - '@App\Application\Envelope\Handler\BuildOfferHandler'
+    tags:
+      - { name: enqueue.transport.processor }
+
+  app.processor.create_offer:
+    class: App\Queue\Processor\CreateOfferProcessor
+    arguments:
+      - '@monolog.logger'
+      - '@App\Application\Envelope\Handler\CreateOfferHandler'
+    tags:
+      - { name: enqueue.transport.processor }
+
+  app.processor.remove_offer:
+    class: App\Queue\Processor\RemoveOfferProcessor
+    arguments:
+      - '@monolog.logger'
+      - '@App\Application\Envelope\Handler\RemoveOfferHandler'
+    tags:
+      - { name: enqueue.transport.processor }
+
+  app.processor.offer_refresh:
+    class: App\Queue\Processor\OfferRefreshProcessor
+    arguments:
+      - '@monolog.logger'
+      - '@App\Application\Envelope\Handler\OfferRefreshHandler'
+    tags:
+      - { name: enqueue.transport.processor }

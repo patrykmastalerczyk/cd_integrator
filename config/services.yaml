@@ -1,0 +1,44 @@
+imports:
+    - { resource: 'services/processors.yaml' }
+
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    App\EventListener\ProductImportEventListener:
+        arguments:
+            $context: '@enqueue.transport.default.context'
+        tags:
+            - { name: kernel.event_listener, event: 'app.import.created', method: 'onCreated' }
+
+    App\EventListener\ProductEventListener:
+        arguments:
+            $context: '@enqueue.transport.default.context'
+        tags:
+            - { name: doctrine.orm.entity_listener, event: 'postRemove', entity: 'App\Entity\Product', method: 'onRemove' }
+
+    App\EventListener\OfferEventListener:
+        arguments:
+            $context: '@enqueue.transport.default.context'
+        tags:
+            - { name: doctrine.orm.entity_listener, event: 'preRemove', entity: 'App\Entity\Offer', method: 'onRemove' }
+
+    App\Application\Provider\ProductDataProvider: ~
+
+    App\Application\Handler\Filter\:
+        resource: '../src/Application/Handler/Filter/*'
+
+    App\Application\CoffeedeskApi\ProductApiClient:
+        $endpoint: '%env(COFFEEDESK_ENDPOINT)%'
+        $apiKey: '%env(COFFEEDESK_API_KEY)%'
